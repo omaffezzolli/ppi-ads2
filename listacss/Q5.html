@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Exemplo especificidade de seletores</title>
+    <style>
+        /* Regra 1: Aplica a cor vermelha a todos os itens da lista */
+        li { color: red; }
+
+        /* Regra 2: Aplica a cor verde a todos os itens com a classe "churras" */
+        .churras { color: green; }
+
+        /* Regra 3: Aplica a cor cinza a todos os itens com a classe "fruta" */
+        .fruta { color: gray; }
+
+        /* Regra 4: Aplica a cor preta ao segundo item "churras" adjacente a outro "li" */
+        li + li.churras { color: black; }
+
+        /* Regra 5: Aplica a cor magenta a itens "churras" que têm o atributo draggable="true" */
+        .churras[draggable="true"] { color: magenta; }
+
+        /* Regra 6: Aplica a cor azul aos itens com id "lip1", "lip2" e "lip3" */
+        #lip1, #lip2, #lip3 { color: blue; }
+
+        /* Regra 7: Aplica a cor laranja ao item com id "lip3" que também tem a classe "fruta" */
+        #lip3.fruta { color: orange; }
+
+        /* Regra 8: Aplica a cor roxa ao item "churras" com id "lip5" dentro de uma lista ordenada */
+        /* Esta regra não se aplica a nenhum item, pois não há um item com id "lip5" */
+        ol > li.churras#lip5 { color: purple; }
+    </style>
+</head>
+<body>
+    <ol>
+        <!-- Item 1: Abacaxi (cor vermelha) -->
+        <li id="lip0">Abacaxi</li>
+        
+        <!-- Item 2: Melão (cor cinza, classe "fruta") -->
+        <li class="fruta">Melão</li>
+        
+        <!-- Item 3: Pera (cor azul, id "lip2" e classe "fruta") -->
+        <li id="lip2" class="fruta">Pera</li>
+        
+        <!-- Item 4: Uva (cor laranja, id "lip3" e classe "fruta") -->
+        <li id="lip3" class="fruta">Uva</li>
+        
+        <!-- Item 5: Maçã (cor vermelha, erro de digitação na classe) -->
+        <li id="lip4" class="fruta">Maçã</li> <!-- cls=as" deve ser class=" -->
+        
+        <!-- Item 6: Carne (cor verde, classe "churras") -->
+        <li class="churras">Carne</li>
+        
+        <!-- Item 7: Linguiça (cor preta, segundo item "churras") -->
+        <li class="churras">Linguiça</li>
+        
+        <!-- Item 8: Pão de alho (cor magenta, classe "churras" e draggable="true") -->
+        <li id="lip7" class="churras" draggable="true">Pão de alho</li>
+    </ol>
+</body>
+</html>

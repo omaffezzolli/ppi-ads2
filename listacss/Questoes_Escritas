@@ -1,0 +1,40 @@
+1- O que é uma regra CSS? Explique o conceito de regra CSS e forneça um exemplo prático que 
+inclua um seletor, uma propriedade e um valor.
+R: Uma regra CSS é uma instrução que define como os elementos HTML devem ser exibidos. Ela é 
+composta por um seletor, que indica quais elementos serão afetados, e uma declaração, que 
+inclui uma ou mais propriedades com seus respectivos valores.
+
+h1 {
+    color: blue;
+    font-size: 24px;
+}
+--------------------------------------------------------------------------------------------
+2- O que são seletores CSS? Quais são os tipos existentes?
+R:Seletores CSS são padrões usados para selecionar elementos HTML que você deseja estilizar. 
+Existem vários tipos de seletores, incluindo:
+
+Seletores de tipo: Selecionam todos os elementos de um determinado tipo (ex: p, h1).
+Seletores de classe: Selecionam elementos com uma classe específica (ex: .minha-classe).
+Seletores de ID: Selecionam um único elemento com um ID específico (ex: #meu-id).
+Seletores de atributo: Selecionam elementos com atributos específicos (ex: [type="text"]).
+Seletores descendentes: Selecionam elementos que são filhos de outro elemento (ex: div p).
+Seletores de pseudoclasse: Selecionam elementos com base em seu estado (ex: a:hover).
+--------------------------------------------------------------------------------------------
+4- Como podemos incluir CSS em documentos HTML?
+R: Inline CSS: Estilos aplicados diretamente nos elementos HTML usando o atributo style.
+Internal CSS: Estilos definidos dentro de uma tag <style> no cabeçalho do documento HTML.
+External CSS: Estilos definidos em um arquivo CSS separado, que é linkado ao documento HTML.
+----------------------------------------------------------------------------------------------
+6- Como podemos incluir CSS em documentos HTML? Cite e explique as diferentes formas de 
+incorporar CSS (inline, internal, external) e comente o impacto de cada método no desempenho 
+e na organização do código.
+R:Existem três formas de incluir CSS em HTML: inline, internal e external. O CSS inline é
+aplicado diretamente em elementos com o atributo style, ideal para estilos únicos, mas 
+dificulta a manutenção e aumenta o tamanho do HTML. O CSS internal é definido em uma tag 
+<style> no cabeçalho, permitindo a aplicação em várias partes do documento, mas não é 
+reutilizável em outros arquivos. Já o CSS external, que utiliza um arquivo separado vinculado
+com a tag <link>, é o mais organizado e eficiente para projetos maiores, permitindo a 
+reutilização de estilos e melhor manutenção, embora requeira um carregamento adicional 
+inicial. Em geral, o CSS external é a melhor opção para desempenho e organização em 
+projetos complexos.
+-----------------------------------------------------------------------------------------------
