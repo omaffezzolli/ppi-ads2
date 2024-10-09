@@ -38,3 +38,5 @@ reutilização de estilos e melhor manutenção, embora requeira um carregamento
 inicial. Em geral, o CSS external é a melhor opção para desempenho e organização em 
 projetos complexos.
 -----------------------------------------------------------------------------------------------
+9- O que muda é basicamente que um é display block e um inline-block;
+Sendo assim muda a forma de exibição dos fatores;
