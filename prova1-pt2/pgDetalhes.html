@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista Produtos</title>
+    <title>Pagina Detalhes</title>
     <style>
         * {
             margin: 0px;
             padding: 0px;
         }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
         header{
             background-image: linear-gradient(to bottom, black, white);
             text-align: center;
@@ -18,44 +25,34 @@
             padding: 20px;
         }
 
-        #container{
-            width: 96vw;
+        main{
+            margin: auto;
             text-align: center;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        #peças{
             background-color: rgb(148, 148, 148);
-            margin: 15px;
-            padding: 20px;
-            text-align: center;
-            border-radius: 20px;
-            flex-direction: column;
+            max-width: 500px;
+            border-radius: 100px;
+            padding: 30px;
         }
 
-        #peças > p {
-            padding: 5px;
-            text-align: center;
+        main > p{
             background-color: white;
-            border-radius: 50px;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 5px;
         }
 
-        #peças > p:hover{
-            background-color: black;
+        main > p > a{
+            text-decoration: none;
+            color: black;
         }
 
-        #peças > p > a:hover {
-            text-align: right;
+        main > p > a:hover{
+            text-decoration: underline;
             color: rgb(148, 148, 148);
         }
 
-        #peças > p > a {
-            text-decoration: none;
-            color: black;
-            text-decoration: underline;
+        section{
+            text-align: center;
         }
 
         footer{
@@ -64,6 +61,7 @@
             text-align: center;
             padding: 5px;
             border-radius: 0px 0px 5px 5px;
+            margin-top: auto;
         }
 
         footer > p > a{
@@ -103,7 +101,6 @@
             text-decoration: underline;
             color: rgb(148, 148, 148);
         }
-
     </style>
 </head>
 <body>
@@ -115,44 +112,24 @@
             <p><a href="pgCarrinho.html">Carrinho de Compras &#x1F6D2</a></p>
         </section>
     </header>
-
+    
     <main>
-        <div id="container">
-            <div id="peças">
-                <img src="imagens/camisa7.png" alt="">
-                <p><a href="pgDetalhes.html">Detalhes</a></p>
-            </div>
-            <div id="peças">
-                <img src="imagens/camisa6.png" alt="">
-                <p><a href="pgDetalhes.html">Detalhes</a></p>
-            </div>
-            <div id="peças">
-                <img src="imagens/camisa3.png" alt="">
-                <p><a href="pgDetalhes.html">Detalhes</a></p>
-            </div>
-            <div id="peças">
-                <img src="imagens/camisa1.png" alt="">
-                <p><a href="pgDetalhes.html">Detalhes</a></p>
-            </div>
-            <div id="peças">
-                <img src="imagens/camisa2.png" alt="">
-                <p><a href="pgDetalhes.html">Detalhes</a></p>
-            </div>
-            <div id="peças">
-                <img src="imagens/camisa5.png" alt="">
-                <p><a href="pgDetalhes.html">Detalhes</a></p>
-            </div>
-            <div id="peças">
-                <img src="imagens/camisa4.png" alt="">
-                <p><a href="pgDetalhes.html">Detalhes</a></p>
-            </div>
-        </div>
+        <h1>Camisa Corinthians 1990</h1>
+        <img src="imagens/camisa7.png" alt="">
+        <h3>Preço R$379,90</h3>
+        <p><a href="#">Adicionar ao carrinho</a></p>
+
+        <section>
+            <h2>Característica:</h2>
+            <p>- Escudo em silk com alta definição.</p>
+            <p>- Todos os produtos a pronta entrega.</p>
+            <p>- Produto oficial licenciado.</p>
+        </section>
     </main>
 
     <footer>
         <a href="pgContatos.html">Meios de Comunicação</a>
-        <p><a href="pgPrincipal.html">Voltar</a></p>
+        <p><a href="pgProdutos.html">Voltar</a></p>
     </footer>
-    
 </body>
 </html>
