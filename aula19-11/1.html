@@ -9,6 +9,10 @@
     <button id="bnt" onclick="hello()">Hello</button>
 
     <script>
+        let botao = document.querySelector("#bnt")
+
+        botao.addEventListener("click", hello)
+
         function hello(){
             console.log("Hello")
         }
