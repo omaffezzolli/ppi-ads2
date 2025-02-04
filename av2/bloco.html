@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloco de Notas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .note-item {
+            cursor: pointer;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .note-item:hover {
+            background-color: #f8f9fa;
+        }
+        #noteContent {
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Bloco de Notas</h1>
+
+    <div class="my-3">
+        <button class="btn btn-primary" id="newNoteBtn">Nova Nota</button>
+    </div>
+
+    <div id="notesList"></div>
+
+    <div id="noteEditor" style="display:none;">
+        <h3 id="noteTitle">Nova Nota</h3>
+        <input type="text" id="noteTitleInput" class="form-control my-3" placeholder="Título da Nota">
+        <textarea id="noteContent" class="form-control" placeholder="Conteúdo da Nota"></textarea>
+        <div class="mt-3">
+            <button class="btn btn-success" id="saveNoteBtn">Salvar Nota</button>
+            <button class="btn btn-secondary" id="cancelEditBtn">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const getNotesFromStorage = () => {
+    const notes = localStorage.getItem('notes');
+    return notes ? JSON.parse(notes) : []; 
+};
+
+const saveNotesToStorage = (notes) => {
+    localStorage.setItem('notes', JSON.stringify(notes));
+};
+
+const renderNotesList = () => {
+    const notes = getNotesFromStorage(); 
+    const notesList = document.getElementById('notesList'); 
+    notesList.innerHTML = ''; 
+
+    notes.forEach(note => {
+        const noteItem = document.createElement('div');
+        noteItem.classList.add('note-item');
+        noteItem.innerHTML = `<strong>${note.titulo}</strong>`;
+        noteItem.onclick = () => openNoteEditor(note.id);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'ms-2');
+        deleteBtn.textContent = 'Excluir';
+        deleteBtn.onclick = (e) => {
+            e.stopPropagation();
+            confirmDelete(note.id);
+        };
+
+        noteItem.appendChild(deleteBtn);
+        notesList.appendChild(noteItem);
+    });
+};
+
+const openNoteEditor = (id = null) => {
+    const notes = getNotesFromStorage();
+    const noteEditor = document.getElementById('noteEditor');
+    const noteTitleInput = document.getElementById('noteTitleInput');
+    const noteContent = document.getElementById('noteContent');
+    const noteTitle = document.getElementById('noteTitle');
+    const saveNoteBtn = document.getElementById('saveNoteBtn');
+    
+    if (id === null) {
+        noteTitle.innerText = 'Nova Nota';
+        noteTitleInput.value = '';
+        noteContent.value = '';
+        saveNoteBtn.onclick = () => saveNote();
+    } else {
+        const note = notes.find(n => n.id === id);
+        noteTitle.innerText = 'Editar Nota';
+        noteTitleInput.value = note.titulo;
+        noteContent.value = note.conteudo;
+        saveNoteBtn.onclick = () => saveNote(id);
+    }
+
+    noteEditor.style.display = 'block';
+};
+
+const saveNote = (id = null) => {
+    const notes = getNotesFromStorage();
+    const noteTitleInput = document.getElementById('noteTitleInput');
+    const noteContent = document.getElementById('noteContent');
+    const newNote = {
+        id: id || Date.now().toString(),
+        titulo: noteTitleInput.value,
+        conteudo: noteContent.value,
+    };
+
+    if (id) {
+        const noteIndex = notes.findIndex(note => note.id === id);
+        notes[noteIndex] = newNote;
+    } else {
+        notes.push(newNote);
+    }
+
+    saveNotesToStorage(notes);
+    renderNotesList();
+    cancelEdit();
+};
+
+const confirmDelete = (id) => {
+    if (confirm('Tem certeza que deseja excluir esta nota?')) {
+        deleteNote(id);
+    }
+};
+
+const deleteNote = (id) => {
+    let notes = getNotesFromStorage();
+    notes = notes.filter(note => note.id !== id);
+    saveNotesToStorage(notes);
+    renderNotesList();
+};
+
+const cancelEdit = () => {
+    document.getElementById('noteEditor').style.display = 'none';
+};
+
+document.getElementById('newNoteBtn').onclick = () => openNoteEditor();
+document.getElementById('cancelEditBtn').onclick = cancelEdit;
+
+window.onload = renderNotesList;
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
