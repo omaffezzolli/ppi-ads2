@@ -10,6 +10,13 @@
             font-size: 50px;
             margin-bottom: 20px;
         }
+        .lista-pausas {
+            margin-top: 20px;
+        }
+        .pause-item {
+            font-size: 18px;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -21,40 +28,65 @@
             <button class="btn btn-warning" onclick="pausar()">Pausar</button>
             <button class="btn btn-danger" onclick="resetar()">Resetar</button>
         </div>
+        
+        <div class="lista-pausas">
+            <h4>Pausas Registradas:</h4>
+            <ul id="lista-pausas"></ul>
+        </div>
     </div>
 
     <script>
-    let tempo = 0; 
-    let intervalo; 
-    let cronometroAtivo = false; 
+        let tempo = 0; 
+        let intervalo; 
+        let cronometroAtivo = false; 
+        let pausas = []; 
 
-function formatarTempo(segundos) {
-    let minutos = Math.floor(segundos / 60);
-    let segundosRestantes = segundos % 60; 
-    return `${minutos < 10 ? '0' + minutos : minutos}:${segundosRestantes < 10 ? '0' + segundosRestantes : segundosRestantes}`;
-}
+        function formatarTempo(segundos) {
+            let minutos = Math.floor(segundos / 60);
+            let segundosRestantes = segundos % 60; 
+            return `${minutos < 10 ? '0' + minutos : minutos}:${segundosRestantes < 10 ? '0' + segundosRestantes : segundosRestantes}`;
+        }
 
-function iniciar() {
-    if (!cronometroAtivo) {
-        cronometroAtivo = true; 
-        intervalo = setInterval(function() {
-            tempo++; 
+        function iniciar() {
+            if (!cronometroAtivo) {
+                cronometroAtivo = true; 
+                intervalo = setInterval(function() {
+                    tempo++; 
+                    document.getElementById('tempo').textContent = formatarTempo(tempo);
+                }, 1000);
+            }
+        }
+
+        function pausar() {
+            if (cronometroAtivo) {
+                clearInterval(intervalo);
+                cronometroAtivo = false;
+                let tempoPausa = formatarTempo(tempo);
+                pausas.push(tempoPausa); 
+                atualizarListaPausas(); 
+            }
+        }
+
+        function resetar() {
+            clearInterval(intervalo);
+            cronometroAtivo = false; 
+            tempo = 0; 
             document.getElementById('tempo').textContent = formatarTempo(tempo);
-        }, 1000);
-    }
-}
+            pausas = []; 
+            atualizarListaPausas(); 
+        }
 
-function pausar() {
-    clearInterval(intervalo);
-    cronometroAtivo = false; 
-}
+        function atualizarListaPausas() {
+            const listaPausasElement = document.getElementById('lista-pausas');
+            listaPausasElement.innerHTML = ''; 
+            pausas.forEach(function(pausa) {
+                let li = document.createElement('li');
+                li.classList.add('pause-item');
+                li.textContent = `Pausa em: ${pausa}`;
+                listaPausasElement.appendChild(li);
+            });
+        }
 
-function resetar() {
-    clearInterval(intervalo);
-    cronometroAtivo = false; 
-    tempo = 0; 
-    document.getElementById('tempo').textContent = formatarTempo(tempo);
-}
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
