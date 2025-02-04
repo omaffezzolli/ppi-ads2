@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teclas Digitadas</title>
+    <style>
+        /* Estilos para centralizar a div e melhorar a apresentação */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .teclas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 2px solid #333;
+            padding: 20px;
+            background-color: #fff;
+            width: 80%;
+            max-width: 500px;
+            min-height: 100px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tecla {
+            font-size: 24px;
+            margin: 5px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="teclas-container" id="teclasContainer">
+    </div>
+
+    <script>
+        document.addEventListener('keydown', function(event) {
+            const teclaDiv = document.createElement('div');
+            teclaDiv.classList.add('tecla');
+            
+            teclaDiv.textContent = event.key;
+
+            document.getElementById('teclasContainer').appendChild(teclaDiv);
+        });
+    </script>
+</body>
+</html>

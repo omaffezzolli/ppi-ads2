@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randomizador de Cores</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .color-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function randomHexColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        }
+
+        function updateColors() {
+            document.querySelectorAll('.color-box').forEach(box => {
+                let newColor = randomHexColor();
+                box.style.backgroundColor = newColor;
+                box.textContent = newColor.toUpperCase();
+                box.style.color = (parseInt(newColor.substring(1), 16) > 0xffffff / 2) ? '#000' : '#FFF';
+            });
+        }
+
+        document.body.innerHTML = '<div class="color-box"></div>'.repeat(5);
+        updateColors();
+
+        document.addEventListener('keydown', event => {
+            if (event.code === 'Space') {
+                updateColors();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio de Números em Intervalo</title>
+</head>
+<body>
+    <h1>Sorteio de Números Aleatórios em Intervalo</h1>
+    <label for="inicio">Início do Intervalo:</label>
+    <input type="number" id="inicio" />
+    <label for="fim">Fim do Intervalo:</label>
+    <input type="number" id="fim" />
+    <button onclick="sortearNumeroIntervalo()">Sortear Número</button>
+    <h3>Resultados Sorteados:</h3>
+    <ul id="listaResultados">
+    </ul>
+
+    <script>
+        const resultados = [];
+
+        function sortearNumeroIntervalo() {
+            const inicio = parseInt(document.getElementById("inicio").value);
+            const fim = parseInt(document.getElementById("fim").value);
+            const numeroSorteado = Math.floor(Math.random() * (fim - inicio + 1)) + inicio;
+
+            const resultado = { numero: numeroSorteado, intervalo: [inicio, fim] };
+            resultados.push(resultado);
+
+            const lista = document.getElementById("listaResultados");
+            const item = document.createElement("li");
+            item.textContent = `Número: ${numeroSorteado}, Intervalo: [${inicio}, ${fim}]`;
+            lista.appendChild(item);
+        }
+    </script>
+</body>
+</html>

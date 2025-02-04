@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio de Números Aleatórios</title>
+</head>
+<body>
+    <h1>Sorteio de Números Aleatórios (0-100)</h1>
+    <button onclick="sortearNumero()">Sortear Número</button>
+    <h3>Números Sorteados:</h3>
+    <ul id="listaNumeros">
+    </ul>
+
+    <script>
+        const numerosSorteados = [];
+
+        function sortearNumero() {
+            const numero = Math.floor(Math.random() * 101); 
+            numerosSorteados.push(numero);
+
+            const lista = document.getElementById("listaNumeros");
+            const item = document.createElement("li");
+            item.textContent = numero;
+            lista.appendChild(item);
+        }
+    </script>
+</body>
+</html>

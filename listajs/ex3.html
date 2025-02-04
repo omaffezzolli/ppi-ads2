@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soma de Números</title>
+</head>
+<body>
+
+  <h1>Soma de Números</h1>
+  
+  <input type="number" id="numero1" placeholder="Primeiro número">
+  <input type="number" id="numero2" placeholder="Segundo número">
+  <button id="btnSomar">Somar</button>
+  
+  <p>Resultado: <span id="resultado">0</span></p>
+
+  <script>
+    var inputNumero1 = document.getElementById("numero1");
+    var inputNumero2 = document.getElementById("numero2");
+    var btnSomar = document.getElementById("btnSomar");
+    var spanResultado = document.getElementById("resultado");
+
+    function somarNumeros() {
+      var num1 = parseFloat(inputNumero1.value);
+      var num2 = parseFloat(inputNumero2.value);
+      
+      if (!isNaN(num1) && !isNaN(num2)) {
+        var soma = num1 + num2;
+        spanResultado.innerText = soma; 
+        console.log("Resultado da soma: " + soma); 
+      } else {
+        spanResultado.innerText = "Por favor, insira dois números válidos.";
+      }
+    }
+
+    btnSomar.addEventListener("click", somarNumeros);
+  </script>
+
+</body>
+</html>

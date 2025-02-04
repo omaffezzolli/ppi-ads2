@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorteio de Número Aleatório</title>
+</head>
+<body>
+
+  <h1>Sorteio de Número Aleatório</h1>
+  <button id="btnSorteio">Sortear um Número</button>
+  <p>O número sorteado é: <span id="numeroSorteado">-</span></p>
+
+  <script>
+    function sorteioNumero() {
+      var numero = Math.floor(Math.random() * 100) + 1; // Sorteio entre 1 e 100
+      document.getElementById("numeroSorteado").innerText = numero;
+      console.log("Número sorteado: " + numero);
+    }
+
+    document.getElementById("btnSorteio").addEventListener("click", sorteioNumero);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .calculadora {
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            grid-gap: 10px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculadora input,
+        .calculadora button {
+            font-size: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .calculadora input {
+            grid-column: span 4;
+            text-align: right;
+        }
+
+        .calculadora button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .calculadora button:active {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculadora">
+        <input type="text" id="display" disabled/>
+        <button onclick="adicionarNumero(7)">7</button>
+        <button onclick="adicionarNumero(8)">8</button>
+        <button onclick="adicionarNumero(9)">9</button>
+        <button onclick="adicionarOperacao('+')">+</button>
+        <button onclick="adicionarNumero(4)">4</button>
+        <button onclick="adicionarNumero(5)">5</button>
+        <button onclick="adicionarNumero(6)">6</button>
+        <button onclick="adicionarOperacao('-')">-</button>
+        <button onclick="adicionarNumero(1)">1</button>
+        <button onclick="adicionarNumero(2)">2</button>
+        <button onclick="adicionarNumero(3)">3</button>
+        <button onclick="adicionarOperacao('*')">*</button>
+        <button onclick="adicionarNumero(0)">0</button>
+        <button onclick="limpar()">C</button>
+        <button onclick="calcular()">=</button>
+        <button onclick="adicionarOperacao('/')">/</button>
+    </div>
+
+    <script>
+        let display = document.getElementById("display");
+        let operacao = "";
+        let valorAtual = "";
+
+        function adicionarNumero(numero) {
+            valorAtual += numero;
+            display.value = valorAtual;
+        }
+
+        function adicionarOperacao(op) {
+            if (valorAtual !== "") {
+                valorAtual += op;
+                display.value = valorAtual;
+            }
+        }
+
+        function limpar() {
+            valorAtual = "";
+            display.value = "";
+        }
+
+        function calcular() {
+            try {
+                valorAtual = eval(valorAtual).toString();
+                display.value = valorAtual;
+            } catch (e) {
+                display.value = "Erro";
+                valorAtual = "";
+            }
+        }
+    </script>
+
+</body>
+</html>

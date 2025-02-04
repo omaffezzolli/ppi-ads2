@@ -1,0 +1,7 @@
+O problema ocorre devido à ordem de carregamento do JavaScript em relação ao HTML.
+
+No primeiro código (esquerda), o script está localizado dentro do <body>, depois do elemento <div id="output">. Isso significa que, quando o script é executado, o elemento já está carregado no DOM, permitindo que document.getElementById("output") encontre o elemento e modifique seu conteúdo sem problemas.
+
+No segundo código (direita), o script está dentro do <head> e é executado antes que o <div id="output"> seja carregado no DOM. Como consequência, document.getElementById("output") retorna null, e tentar acessar a propriedade innerText de null gera um erro.
+
+Para corrigir o segundo código, o script poderia ser movido para o final do <body> (como no primeiro exemplo) ou envolver o código dentro de um evento como window.onload, garantindo que o DOM esteja completamente carregado antes da execução do JavaScript.

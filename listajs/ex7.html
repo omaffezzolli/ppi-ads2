@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Dados</title>
+</head>
+<body>
+    <h1>Verificador de Tipo de Dados</h1>
+    <div id="resultado"></div>
+
+    <script>
+        let nome = "João";             
+        let idade = 30;                
+        let isAtivo = true;            
+        let numeros = [1, 2, 3, 4];   
+        let pessoa = { nome: "João", idade: 30 };
+
+        function verificarTipo(dado) {
+            return typeof dado;
+        }
+
+        document.getElementById("resultado").innerHTML = `
+            Nome: ${verificarTipo(nome)}<br>
+            Idade: ${verificarTipo(idade)}<br>
+            Ativo: ${verificarTipo(isAtivo)}<br>
+            Números: ${verificarTipo(numeros)}<br>
+            Pessoa: ${verificarTipo(pessoa)}
+        `;
+    </script>
+</body>
+</html>
