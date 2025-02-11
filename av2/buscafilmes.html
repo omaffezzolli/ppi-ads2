@@ -17,7 +17,7 @@
             margin: auto;
             padding: 20px;
         }
-        .filmator {
+        .busca {
             text-align: center;
             font-family: 'Bebas Neue', sans-serif;
             color: #ff4757;
@@ -75,7 +75,7 @@
 </head>
 <body>
     <div class="container">
-        <h3 class="filmator">Filmator</h3>
+        <h3 class="busca">Busca Filme</h3>
         <div class="pesquisa">
             <form class="d-flex">
                 <input placeholder="Procure seu filme/série favorito!" class="form-control" type="text" id="nomePesquisa">
@@ -95,14 +95,6 @@
         });
 
         const apiKey = "3aa94adb7852fb0e67f92959df98b9d4";
-
-        async function carregarFilmesAleatorios() {
-            const filmesAleatorios = ["Batman", "Matrix", "Avengers", "Titanic", "Inception", "Joker", "Interstellar", "Gladiator"];
-            const filmesEscolhidos = filmesAleatorios.sort(() => Math.random() - 0.5).slice(0, 8);
-            const filmesPromises = filmesEscolhidos.map(titulo => buscarFilmePorTitulo(titulo));
-            const filmes = await Promise.all(filmesPromises);
-            mostrarFilmes(filmes);
-        }
 
         async function buscarFilmePorTitulo(titulo) {
             const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(titulo)}&language=pt-BR`;
