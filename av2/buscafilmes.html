@@ -9,75 +9,77 @@
     <style>
         body {
             color: white !important;
-            background-color: #121212;
+            background-color: #1e1e1e;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .filmator {
+            text-align: center;
+            font-family: 'Bebas Neue', sans-serif;
+            color: #ff4757;
+            font-size: 3rem;
         }
         .pesquisa {
-            margin-top: 2%;
             display: flex;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            flex-direction: row;
+            margin-bottom: 20px;
         }
-        .cardFilmes {
-            margin: 1%;
-            text-align: center;
-            border: solid 1px grey;
-            width: 22%;  
-            border-radius: 10px;
-            background-color: rgba(34, 0, 0, 0.4);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 450px; 
-            padding: 10px;  
+        .pesquisa input {
+            width: 50%;
+            padding: 10px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            border: none;
+        }
+        .pesquisa button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
         }
         .filmes {
-            padding: 10px;
-            margin: 10px;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: flex-start; 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
             justify-content: center;
+        }
+        .cardFilmes {
+            background-color: #2d2d2d;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 0px 0px 10px rgba(255, 71, 87, 0.5);
+        }
+        .imagem img {
             width: 100%;
+            border-radius: 5px;
         }
         .nomeFilme h3 {
             font-family: 'Bebas Neue', sans-serif;
-            margin-top: 10px;
-            font-size: 1.2em;  
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #ff6b81;
         }
-        .imagem img {
-            width: 100%;  
-            height: auto;
-            border-radius: 5px;
-        }
-        .descricao {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            font-size: 0.9em;  
-        }
-        .nota {
-            margin-bottom: 10px;
-            font-size: 1em;
-        }
-        .filmator {
-            margin-top: 2%;
-            font-family: 'Bebas Neue', sans-serif;
-            color: red;
-            font-weight: 800;
-            text-align: center;
+        .descricao, .nota {
+            font-size: 1rem;
+            color: #dcdcdc;
         }
     </style>
 </head>
-<body class="bg-dark">
+<body>
     <div class="container">
         <h3 class="filmator">Filmator</h3>
         <div class="pesquisa">
-            <form class="row g-3">
+            <form class="d-flex">
                 <input placeholder="Procure seu filme/série favorito!" class="form-control" type="text" id="nomePesquisa">
-                <button class="btn btn-outline-danger">Buscar</button>
+                <button class="btn">Buscar</button>
             </form>
         </div>
         <div class="filmes"></div>
@@ -88,7 +90,7 @@
         });
 
         document.querySelector("form").addEventListener("submit", function (event) {
-            event.preventDefault(); 
+            event.preventDefault();
             buscarFilmes();
         });
 
@@ -98,7 +100,6 @@
             const filmesAleatorios = ["Batman", "Matrix", "Avengers", "Titanic", "Inception", "Joker", "Interstellar", "Gladiator"];
             const filmesEscolhidos = filmesAleatorios.sort(() => Math.random() - 0.5).slice(0, 8);
             const filmesPromises = filmesEscolhidos.map(titulo => buscarFilmePorTitulo(titulo));
-
             const filmes = await Promise.all(filmesPromises);
             mostrarFilmes(filmes);
         }
@@ -108,7 +109,7 @@
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                return data.results[0]; 
+                return data.results[0];
             } catch (error) {
                 console.error("Erro ao buscar filme:", error);
                 return null;
@@ -118,11 +119,9 @@
         async function buscarFilmes() {
             const query = document.getElementById("nomePesquisa").value;
             const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=pt-BR`;
-
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-
                 if (data.results && data.results.length > 0) {
                     mostrarFilmes(data.results);
                 } else {
@@ -136,17 +135,15 @@
         function mostrarFilmes(filmes) {
             const container = document.querySelector(".filmes");
             container.innerHTML = "";
-
             filmes.forEach(filme => {
                 if (!filme) return;
-
                 const filmeHTML = `
                     <div class="cardFilmes">
                         <div class="nomeFilme">
                             <h3>${filme.title}</h3>
                         </div>
                         <div class="imagem">
-                            <img src="https://image.tmdb.org/t/p/w300${filme.poster_path || '/zKZrCBZDi7ZmB5nGFt7wa5KMgdp.jpg'}" alt="${filme.title}" width="300" height="200">
+                            <img src="https://image.tmdb.org/t/p/w300${filme.poster_path || '/zKZrCBZDi7ZmB5nGFt7wa5KMgdp.jpg'}" alt="${filme.title}">
                         </div>
                         <div class="descricao">
                             <p>${filme.overview ? filme.overview : "Descrição não disponível."}</p>
