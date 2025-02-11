@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Filmes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            color: white !important;
+            background-color: #121212;
+        }
+        .pesquisa {
+            margin-top: 2%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: row;
+        }
+        .cardFilmes {
+            margin: 1%;
+            text-align: center;
+            border: solid 1px grey;
+            width: 22%;  
+            border-radius: 10px;
+            background-color: rgba(34, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 450px; 
+            padding: 10px;  
+        }
+        .filmes {
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start; 
+            justify-content: center;
+            width: 100%;
+        }
+        .nomeFilme h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            margin-top: 10px;
+            font-size: 1.2em;  
+            margin-bottom: 10px;
+        }
+        .imagem img {
+            width: 100%;  
+            height: auto;
+            border-radius: 5px;
+        }
+        .descricao {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9em;  
+        }
+        .nota {
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        .filmator {
+            margin-top: 2%;
+            font-family: 'Bebas Neue', sans-serif;
+            color: red;
+            font-weight: 800;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <h3 class="filmator">Filmator</h3>
+        <div class="pesquisa">
+            <form class="row g-3">
+                <input placeholder="Procure seu filme/série favorito!" class="form-control" type="text" id="nomePesquisa">
+                <button class="btn btn-outline-danger">Buscar</button>
+            </form>
+        </div>
+        <div class="filmes"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            carregarFilmesAleatorios();
+        });
+
+        document.querySelector("form").addEventListener("submit", function (event) {
+            event.preventDefault(); 
+            buscarFilmes();
+        });
+
+        const apiKey = "3aa94adb7852fb0e67f92959df98b9d4";
+
+        async function carregarFilmesAleatorios() {
+            const filmesAleatorios = ["Batman", "Matrix", "Avengers", "Titanic", "Inception", "Joker", "Interstellar", "Gladiator"];
+            const filmesEscolhidos = filmesAleatorios.sort(() => Math.random() - 0.5).slice(0, 8);
+            const filmesPromises = filmesEscolhidos.map(titulo => buscarFilmePorTitulo(titulo));
+
+            const filmes = await Promise.all(filmesPromises);
+            mostrarFilmes(filmes);
+        }
+
+        async function buscarFilmePorTitulo(titulo) {
+            const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(titulo)}&language=pt-BR`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data.results[0]; 
+            } catch (error) {
+                console.error("Erro ao buscar filme:", error);
+                return null;
+            }
+        }
+
+        async function buscarFilmes() {
+            const query = document.getElementById("nomePesquisa").value;
+            const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=pt-BR`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    mostrarFilmes(data.results);
+                } else {
+                    document.querySelector(".filmes").innerHTML = "<p class='text-white'>Nenhum filme encontrado.</p>";
+                }
+            } catch (error) {
+                console.error("Erro ao buscar filmes:", error);
+            }
+        }
+
+        function mostrarFilmes(filmes) {
+            const container = document.querySelector(".filmes");
+            container.innerHTML = "";
+
+            filmes.forEach(filme => {
+                if (!filme) return;
+
+                const filmeHTML = `
+                    <div class="cardFilmes">
+                        <div class="nomeFilme">
+                            <h3>${filme.title}</h3>
+                        </div>
+                        <div class="imagem">
+                            <img src="https://image.tmdb.org/t/p/w300${filme.poster_path || '/zKZrCBZDi7ZmB5nGFt7wa5KMgdp.jpg'}" alt="${filme.title}" width="300" height="200">
+                        </div>
+                        <div class="descricao">
+                            <p>${filme.overview ? filme.overview : "Descrição não disponível."}</p>
+                        </div>
+                        <div class="nota">
+                            <p>Nota: ${filme.vote_average ? filme.vote_average : "Sem avaliação"}</p>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += filmeHTML;
+            });
+        }
+    </script>
+</body>
+</html>
